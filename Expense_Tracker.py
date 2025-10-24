@@ -1,26 +1,31 @@
 
 #Validates if the Input for amount is not string
-def Digit_Validator(x):
+def Digit_Validator(prompt):
     while True:
         try:
-            return float(x)
+            return float(input(prompt))
         except ValueError:
-            x = input("Please Enter Digits: ")
+            print("Please enter a valid number.")
 
 #main
 def main(total_sum):
 
     #User input
     name = input("Enter you name: ")
-    income = Digit_Validator(input("Enter Yearly Income: "))
+    income = Digit_Validator("Enter Yearly Income: ")
     tax = input("Enter Yearly Tax Amount, If unknown enter 'y' to enter Tax percentage: ")
 
     if tax.lower() == "y":
-        tax_percentage = Digit_Validator(input("Enter Tax Percentage: "))
+        tax_percentage = Digit_Validator("Enter Tax Percentage: ")
         tax = (float(tax_percentage) / 100) * float(income)
         print("Tax = ",tax)
     else:
-        tax = Digit_Validator(tax)
+        while True:
+            try:
+                tax = float(tax)
+                break
+            except ValueError:
+                tax = input("Enter Valid Tax Amount: ")
 
     total_sum += tax
 
@@ -36,11 +41,11 @@ def main(total_sum):
 def user_data(total_sum):
 
     while True:
-        category = input("Enter Category, If Nothing to add enter 'y': ")
-        if category.lower() == "y":
+        category = input("Enter Category, If Nothing to add enter '1' to Exit: ")
+        if category == "1":
             break
         else:
-            category_amount = Digit_Validator(input("Enter amount spent: "))
+            category_amount = Digit_Validator("Enter amount spent: ")
             total_sum += category_amount
             records.append([category, category_amount])
     return total_sum
@@ -60,3 +65,4 @@ if __name__ == "__main__":
 
     print("Total Spending: ",total_sum)
     print("Remaining Balance: ",balance)
+
