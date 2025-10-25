@@ -1,5 +1,13 @@
 import csv
 import os
+import pandas as pd
+import matplotlib.pyplot as plt
+
+#Public
+records = []
+labels = []
+data = []
+total_sum = 0.0
 
 #Saving User Data in a CSV file
 def Save_to_CSV(filename, records):
@@ -46,6 +54,9 @@ def User_input(total_sum):
     records.append(['Income', income])
     records.append(['Tax', tax])
 
+    labels.append('Tax')
+    data.append(tax)
+
     total_sum = user_data(total_sum)
 
 
@@ -60,15 +71,13 @@ def user_data(total_sum):
         if category == "1":
             break
         else:
+
             category_amount = Digit_Validator("Enter amount spent: ")
             total_sum += category_amount
+            labels.append(category)
+            data.append(category_amount)
             records.append([category, category_amount])
     return total_sum
-
-
-#Public
-records = []
-total_sum = 0.0
 
 if __name__ == "__main__":
     while True:
@@ -80,14 +89,20 @@ if __name__ == "__main__":
             balance = float(total_income) - float(total_sum)
             records.append(["Total Spending: ",total_sum])
             records.append(["Remaining Balance: ",balance])
-            print("\nRecords:")
+
+            '''print("\nRecords:")
             for r in records:
-                print(r)
+                print(r)'''
 
             print("Total Spending: ",total_sum)
             print("Remaining Balance: ",balance)
             filename = input("Enter File name to Store Data: ")
             Save_to_CSV(filename, records)
+            df = pd.read_csv(filename)
+            print(df)
+
+            plt.pie(data, labels = labels, autopct = "%1.1f%%")
+            plt.show()
 
             break
 
@@ -99,8 +114,11 @@ if __name__ == "__main__":
                         records = []
                         user_data(total_sum)
                         writer = csv.writer(file)
-                        writer.writerow(records)
+                        writer.writerows(records)
                         print("Data Appended Successfully")
+                        df = pd.read_csv(filename)
+                        print(df)
+
                         break
                 elif filename == "1":
                     break
