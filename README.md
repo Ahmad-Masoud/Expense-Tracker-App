@@ -1,17 +1,13 @@
 # Expense-Tracker-App
 
-Python Expense Tracker App
+Built a desktop expense tracking application using Python and PySide6
 
-Takes User Input and Stores it in a csv File
+Designed interactive UI with dynamic widgets, checkboxes, and radio-button logic
 
-Uses Matplotlib for Visual display
+Implemented real-time financial data visualization using Matplotlib pie charts
 
-Uses Pandas for Data display 
+Stored and processed user financial data using Pandas and CSV file handling
 
-Digit_Validator() to check if digit in entered in amount
+Added conditional input fields and automatic UI updates based on user selection
 
-User can enter as many Categories as they want
-
-Program allows user to create new file or append previous files
-
-Program handles logical errors
+Applied custom styling using Qt Stylesheets
